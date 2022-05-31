@@ -12,12 +12,38 @@ function addGridSquares(noRows,noCols){
     for(let j = 1; j <= noRows; j++){
       let gridSquareDiv = document.createElement('div');
       gridSquareDiv.classList = 'gridSquare';
-      gridSquareDiv.id = `gridSquare(${j},${i})`;
+      gridSquareDiv.dataset.hsl;
       gridSquareDiv.addEventListener('mouseenter', 
-        () => gridSquareDiv.classList.add('gridHover'));
+        () => changeColour(gridSquareDiv));
       rowContainerDiv.appendChild(gridSquareDiv);
     }
     container.appendChild(rowContainerDiv);
+  }
+}
+
+function hslString(hslData){
+  return `hsl(${hslData.hue},${hslData.saturation}%,` + 
+    `${hslData.lightness}%)`;
+}
+
+function darkenColour(hslData,percentage){
+  hslData.lightness -= percentage;
+  return hslData;
+}
+
+function changeColour(gridSquare){
+  if (gridSquare.classList.contains('hovered')){
+    let darkenedColour = darkenColour(gridSquare['data-hsl'],10);
+    gridSquare['data-hsl'] = darkenedColour;
+    gridSquare.style.backgroundColor = hslString(darkenedColour);
+  }
+  else {
+    let newColour = {hue:Math.random()*360, 
+                     saturation:100, 
+                     lightness:90};
+    gridSquare['data-hsl'] = newColour;
+    gridSquare.style.backgroundColor = hslString(newColour);
+    gridSquare.classList.add('hovered');
   }
 }
 
@@ -32,8 +58,8 @@ function validDimension(dim){
 function changeDimensions(){
   let noRows, noCols;
   while(!validDimension(noRows)){
-    noRows = +prompt('Enter the number of rows (Must be an integer ' +
-                     'between 1 and 100): ');
+    noRows = +prompt('Enter the number of rows (Must be an ' +
+                     'integer between 1 and 100): ');
   }
   while(!validDimension(noCols)){
     noCols = +prompt('Enter the number of columns (Must be an ' +
@@ -43,4 +69,4 @@ function changeDimensions(){
   addGridSquares(noRows,noCols);
 }
 
-addGridSquares(40,40);
+addGridSquares(10,10);
