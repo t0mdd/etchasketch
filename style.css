@@ -6,13 +6,15 @@
 body{
     height: 100vh;
     display: flex;
+    flex-direction: column;
+    row-gap: 20px;
     justify-content: center;
     align-items: center;
 }
 
 .container{
-    width: 500px;
-    height: 500px;
+    width: 70vw;
+    height: 70vh;
     display: flex;
     flex-direction: column;
 }
@@ -24,7 +26,7 @@ body{
 
 .gridSquare{
     flex: 1;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .gridHover{
