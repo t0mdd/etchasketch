@@ -20,10 +20,13 @@ body{
 .rowContainer{
     flex: 1;
     display: flex;
-    min-height: 100px;
 }
 
 .gridSquare{
     flex: 1;
     border: 2px solid black;
+}
+
+.gridHover{
+    background-color: black;
 }
