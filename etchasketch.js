@@ -4,11 +4,10 @@ const changeDimensionsBtn =
 
 changeDimensionsBtn.addEventListener('click',changeDimensions);
 
-function addGridSquares(noRows,noCols){
+function setup(noRows,noCols){
   for(let i = 1; i <= noCols; i++){
     let rowContainerDiv = document.createElement('div');
     rowContainerDiv.classList = 'rowContainer';
-    rowContainerDiv.id = `rowContainer${i}`;
     for(let j = 1; j <= noRows; j++){
       let gridSquareDiv = document.createElement('div');
       gridSquareDiv.classList = 'gridSquare';
@@ -26,20 +25,21 @@ function hslString(hslData){
     `${hslData.lightness}%)`;
 }
 
-function darkenColour(hslData,percentage){
+function intensifyColour(hslData,percentage){
   hslData.lightness -= percentage;
+  hslData.saturation += percentage/2;
   return hslData;
 }
 
 function changeColour(gridSquare){
   if (gridSquare.classList.contains('hovered')){
-    let darkenedColour = darkenColour(gridSquare['data-hsl'],10);
-    gridSquare['data-hsl'] = darkenedColour;
-    gridSquare.style.backgroundColor = hslString(darkenedColour);
+    let newColour = intensifyColour(gridSquare['data-hsl'],10);
+    gridSquare['data-hsl'] = newColour;
+    gridSquare.style.backgroundColor = hslString(newColour);
   }
   else {
-    let newColour = {hue:Math.random()*360, 
-                     saturation:100, 
+    let newColour = {hue:Math.random()*24, 
+                     saturation:50, 
                      lightness:90};
     gridSquare['data-hsl'] = newColour;
     gridSquare.style.backgroundColor = hslString(newColour);
@@ -58,15 +58,19 @@ function validDimension(dim){
 function changeDimensions(){
   let noRows, noCols;
   while(!validDimension(noRows)){
-    noRows = +prompt('Enter the number of rows (Must be an ' +
-                     'integer between 1 and 100): ');
+    userInput = prompt('Enter the number of rows (Must be an ' +
+                       'integer between 1 and 100): ');
+    if (userInput === null) return;
+    else noRows = +userInput;
   }
   while(!validDimension(noCols)){
-    noCols = +prompt('Enter the number of columns (Must be an ' +
-                     'integer between 1 and 100): ');
+    userInput = prompt('Enter the number of columns (Must be an ' +
+                       'integer between 1 and 100): ');
+    if (userInput === null) return;
+    else noCols = +userInput;
   }
   container.innerHTML = ''; //remove its content
-  addGridSquares(noRows,noCols);
+  setup(noRows,noCols);
 }
 
-addGridSquares(10,10);
+setup(20,20);

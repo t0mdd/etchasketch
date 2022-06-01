@@ -12,11 +12,24 @@ body{
     align-items: center;
 }
 
+h1 {
+    color: hsl(0,90%,40%);
+}
+
+button {
+    padding: 10px;
+    border: 2px solid red;
+    background-color: hsl(0,70%,90%);
+    color: hsl(0,90%,40%);
+    font-weight: bolder;
+}
+
 .container{
-    width: 70vw;
-    height: 70vh;
+    width: 70vmin;
+    height: 70vmin;
     display: flex;
     flex-direction: column;
+    border: 5px solid hsl(0,90%,40%);
 }
 
 .rowContainer{
@@ -26,9 +39,8 @@ body{
 
 .gridSquare{
     flex: 1;
-    background-color: white;
+    background-color: hsl(0,40%,90%);
 }
 
-.gridHover{
-    background-color: white;
-}
+
+
